@@ -1,0 +1,37 @@
+This project's goal is homebrew automation using the raspberry pi.
+
+Doing stuff:
+
+control_api.py
+	GET / - Welcome message with version
+	GET /bbp/api/v1.0/status - Initial config
+	GET /bbp/api/v1.0/status/<dev_id> - Get the current setup of device dev_id
+	POST /bbp/api/v1.0/set_temp - Set a temp to maintain
+		temp (required) - set temp to reach
+		heating_element_id - the ID (from the config) of the heating device.  There is a default set
+		sensor_id - the ID (from the config) of the temperature sensor to use for this cycle.  There is a default set
+		duty_cycle - Change the heating element's duty cycle
+		cycle_length - Change the heating element's cycle length
+simple_temp_control.py loops, maintaining a set temp
+
+	GET,POST /bbp/api/v1.0/stop_set_temp
+		heating_element_id - the ID (from the config) of the heating device.  There is a default set
+
+Usage: simple_temp_control.py [options]
+
+Options:
+  -h, --help            show this help message and exit
+  -t SETTEMP, --temp=SETTEMP
+  -d DUTYCYCLE, --dutycycle=DUTYCYCLE
+  -c CYCLELENGTH, --cyclelength=CYCLELENGTH
+
+simple_temp_loop.py
+	Just watch the temp sensors
+
+Supporting files:
+
+heating_element.py
+	This creates the heating element object, with threading
+
+one_wire_temp.py
+	This creates the one wire temp sensor object, with threading

@@ -1,0 +1,27 @@
+#! /bin/sh
+# /etc/init.d/blah
+#
+
+# Some things that run always
+NAME=bbpi_control_api
+DAEMON='/usr/bin/python /home/enrique/BeerberryPi/control_api.py'
+USER='root'
+PIDFILE=/var/run/$NAME.pid
+
+# Carry out specific functions when asked to by the system
+case "$1" in
+  start)
+    echo "Starting BBPi Control API"
+    start-stop-daemon --start --background --make-pidfile --pidfile $PIDFILE --user $USER --exec $DAEMON
+    ;;
+  stop)
+    echo "Stopping BBPi Control API"
+    pkill -f '/usr/bin/python /home/enrique/BeerberryPi/control_api.py'
+    ;;
+  *)
+    echo "Usage: /etc/init.d/BBPi_control_api {start|stop}"
+    exit 1
+    ;;
+esac
+
+exit 0
