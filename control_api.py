@@ -1,6 +1,6 @@
 #!/usr/bin/python
 import sys
-sys.path.append("./physical_modules")
+sys.path.append("/home/enrique/BeerberryPi/physical_modules")
 import threading
 import logging
 from flask import Flask, jsonify, request
@@ -129,6 +129,7 @@ def exit_app():
     	func()
 
 if __name__ == '__main__':
-        app.run(host='0.0.0.0')
+	app.run()
+        #app.run(host='0.0.0.0')
 
 sys.exit(0)

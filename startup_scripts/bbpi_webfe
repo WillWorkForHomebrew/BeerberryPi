@@ -1,0 +1,28 @@
+#! /bin/sh
+# /etc/init.d/blah
+#
+
+# Some things that run always
+NAME=bbpi_webfe
+REQUIRES=bbpi_control_api
+DAEMON='/home/enrique/BeerberryPi/bbpi_webfe.sh'
+USER='enrique'
+PIDFILE=/var/run/$NAME.pid
+
+# Carry out specific functions when asked to by the system
+case "$1" in
+  start)
+    echo "Starting BBPi Web Frontend"
+    start-stop-daemon --start --background --make-pidfile --pidfile $PIDFILE -c $USER --exec $DAEMON
+    ;;
+  stop)
+    echo "Stopping BBPi Web Frontend"
+    pkill -f '/home/enrique/.rvm/rubies/ruby-2.2.0/bin/ruby /home/enrique/BeerberryPi/bbpi_webfe.rb'
+    ;;
+  *)
+    echo "Usage: /etc/init.d/bbpi_webfe {start|stop}"
+    exit 1
+    ;;
+esac
+
+exit 0
